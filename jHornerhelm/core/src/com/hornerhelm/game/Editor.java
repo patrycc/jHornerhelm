@@ -7,10 +7,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.building.utilities.layouts.TableLayout;
 
 public class Editor implements Screen{
 
@@ -19,26 +24,32 @@ public class Editor implements Screen{
 	OrthographicCamera camera;
 	
     Stage stage;
-	
+
     TextButton kriegButton;
     TextButton schutzButton;
     TextButton machtButton;
     TextButton tricksterButton;
     TextButton heilButton;
+    TextButton acceptButton;
     
     TextButtonStyle kriegButtonStyle;
     TextButtonStyle schutzButtonStyle;
     TextButtonStyle machtButtonStyle;
     TextButtonStyle tricksterButtonStyle;
     TextButtonStyle heilButtonStyle;
+    TextButtonStyle acceptButtonStyle;
 	
     Skin skin;
     BitmapFont font;
 	Texture background;
     TextureAtlas buttonAtlas;
+    
+    public String[][] einherjar = new String[0][0];
 	
 	public Editor(final Hornerhelm gam) {
 		this.game = gam;
+		
+		System.out.println("ok:"+game.test);
 		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, 540, 540);
@@ -46,7 +57,6 @@ public class Editor implements Screen{
         background = new Texture(Gdx.files.internal("editor_bg.png"));
         
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
         font = new BitmapFont();
         
         skin = new Skin();
@@ -86,10 +96,69 @@ public class Editor implements Screen{
         heilButtonStyle.up = skin.getDrawable("heil-button");
         heilButton = new TextButton("Heilung", heilButtonStyle);
         heilButton.setPosition(360, 0);
-        stage.addActor(heilButton);            
+        stage.addActor(heilButton);
+        
+        acceptButtonStyle = new TextButtonStyle();
+        acceptButtonStyle.font = font;
+        acceptButtonStyle.up = skin.getDrawable("okay-button");
+        acceptButton = new TextButton("OK", acceptButtonStyle);
+        acceptButton.setPosition(450, 0);
+        stage.addActor(acceptButton);
+        
+        kriegButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.test = "krieg";
+                System.out.println(game.test);
+            }
+        });
+        
+        schutzButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.test = "schutz";
+                System.out.println(game.test);
+            }
+        });
+        
+        machtButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.test = "macht";
+                System.out.println(game.test);
+            }
+        });
+        
+        tricksterButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.test = "trickster";
+                System.out.println(game.test);
+            }
+        });
+
+        heilButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                game.test = "heil";
+                System.out.println(game.test);
+            }
+        });        
+        
+        acceptButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+    			game.setScreen(new Title(game));
+    			dispose();
+            }
+        });
         
 		System.out.println("Editor");
 		
+        Gdx.input.setInputProcessor(stage);
+		
+	}
+	
+	private void click() {
+		System.out.println(game.test);
+	}
+	
+	private void add(String entry) {
+		System.out.println(entry);
 	}
 
 	@Override
@@ -111,6 +180,7 @@ public class Editor implements Screen{
 		game.batch.draw(background, 0, 0);
 		game.batch.end();
 		
+		stage.act();
         stage.draw();
 		
 	}
