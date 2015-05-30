@@ -1,5 +1,7 @@
 package com.hornerhelm.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,9 +12,15 @@ public class Hornerhelm extends Game {
 	Texture img;
 	BitmapFont font;
 	String test = new String("hallo?");
+
+	ArrayList<Integer[]> party = new ArrayList<Integer[]>();
 	
 	@Override
 	public void create () {
+		
+		
+		this.party.add(new Integer[]{0,0,0,0,0});
+		
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		this.setScreen(new Title(this));

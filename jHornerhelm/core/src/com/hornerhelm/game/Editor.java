@@ -1,5 +1,7 @@
 package com.hornerhelm.game;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,15 +9,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.kotcrab.vis.ui.building.utilities.layouts.TableLayout;
 
 public class Editor implements Screen{
 
@@ -44,10 +43,13 @@ public class Editor implements Screen{
 	Texture background;
     TextureAtlas buttonAtlas;
     
-    public String[][] einherjar = new String[0][0];
-	
+    Integer[] temparray;
+    boolean ausstehend;
+    
 	public Editor(final Hornerhelm gam) {
 		this.game = gam;
+
+		System.out.println(Arrays.asList(game.party.get(0)));
 		
 		System.out.println("ok:"+game.test);
 		
@@ -105,10 +107,13 @@ public class Editor implements Screen{
         acceptButton.setPosition(450, 0);
         stage.addActor(acceptButton);
         
+        temparray = new Integer[5];
+        
         kriegButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 game.test = "krieg";
                 System.out.println(game.test);
+                add(1);
             }
         });
         
@@ -116,6 +121,7 @@ public class Editor implements Screen{
             public void clicked(InputEvent event, float x, float y) {
                 game.test = "schutz";
                 System.out.println(game.test);
+                add(2);
             }
         });
         
@@ -123,6 +129,7 @@ public class Editor implements Screen{
             public void clicked(InputEvent event, float x, float y) {
                 game.test = "macht";
                 System.out.println(game.test);
+                add(3);
             }
         });
         
@@ -130,6 +137,7 @@ public class Editor implements Screen{
             public void clicked(InputEvent event, float x, float y) {
                 game.test = "trickster";
                 System.out.println(game.test);
+                add(4);
             }
         });
 
@@ -137,6 +145,7 @@ public class Editor implements Screen{
             public void clicked(InputEvent event, float x, float y) {
                 game.test = "heil";
                 System.out.println(game.test);
+                add(5);
             }
         });        
         
@@ -153,12 +162,45 @@ public class Editor implements Screen{
 		
 	}
 	
-	private void click() {
-		System.out.println(game.test);
-	}
-	
-	private void add(String entry) {
-		System.out.println(entry);
+	private void add(Integer entry) {
+		System.out.println("lenge: "+game.party.size());
+		
+		ausstehend = true;
+		
+		for (int i = 0 ; i != game.party.size(); i++){
+			
+			System.out.println("los gehts");
+			
+			for (int y = 0; y != 5; y++){
+				
+				System.out.println("5 mal " + y + " " + i);
+				
+				if (game.party.get(i)[y] == 0 && ausstehend) {
+
+					System.out.println("DRIN");
+					
+					temparray = game.party.get(i);
+					temparray[y] = entry;
+
+					game.party.set(i, temparray);
+					ausstehend = false;
+				}
+				
+				System.out.println("reihe:"+i+" "+Arrays.asList(game.party.get(i)));
+			}
+			
+			System.out.println(" i:" + i + " lenge: "+ game.party.size());
+			
+			if (game.party.size() != 5 && ausstehend && i+1 == game.party.size())
+			{
+				System.out.println("add einherjar");
+				game.party.add(new Integer[]{entry,0,0,0,0});
+				ausstehend = false;
+			}
+		}
+		
+		System.out.println("--------------------------------------------------------------");
+		
 	}
 
 	@Override
