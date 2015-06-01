@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -41,7 +42,10 @@ public class Editor implements Screen{
     Skin skin;
     BitmapFont font;
 	Texture background;
+	Texture testTexture;
     TextureAtlas buttonAtlas;
+    
+    private TextureRegion kriegRegion, schutzRegion, machtRegion, tricksterRegion, heilRegion;
     
     Integer[] temparray;
     boolean ausstehend;
@@ -64,6 +68,21 @@ public class Editor implements Screen{
         skin = new Skin();
         buttonAtlas = new TextureAtlas(Gdx.files.internal("icons"));
         skin.addRegions(buttonAtlas);
+        
+        kriegRegion = new TextureRegion();
+        kriegRegion = buttonAtlas.findRegion("krieg-select");
+        
+        schutzRegion = new TextureRegion();
+        schutzRegion = buttonAtlas.findRegion("schutz-select");
+        
+        machtRegion = new TextureRegion();
+        machtRegion = buttonAtlas.findRegion("macht-select");
+        
+        tricksterRegion = new TextureRegion();
+        tricksterRegion = buttonAtlas.findRegion("trickster-select");
+        
+        heilRegion = new TextureRegion();
+        heilRegion = buttonAtlas.findRegion("heil-select");                
         
         kriegButtonStyle = new TextButtonStyle();
         kriegButtonStyle.font = font;
@@ -163,6 +182,7 @@ public class Editor implements Screen{
 	}
 	
 	private void add(Integer entry) {
+
 		System.out.println("lenge: "+game.party.size());
 		
 		ausstehend = true;
@@ -220,6 +240,28 @@ public class Editor implements Screen{
  
 		game.batch.begin();
 		game.batch.draw(background, 0, 0);
+		
+		for (int i = 0 ; i != game.party.size(); i++){
+			for (int y = 0; y != game.party.get(i).length; y++){
+				int aspect = game.party.get(i)[y];
+				if (aspect == 1)
+				{
+					game.batch.draw(kriegRegion, y*90,450-(90*i));
+				}
+				else if (aspect == 2){
+					game.batch.draw(schutzRegion, y*90,450-(90*i));
+				}
+				else if (aspect == 3){
+					game.batch.draw(machtRegion, y*90,450-(90*i));
+				}
+				else if (aspect == 4){
+					game.batch.draw(tricksterRegion, y*90,450-(90*i));
+				}
+				else if (aspect == 5){
+					game.batch.draw(heilRegion, y*90,450-(90*i));
+				}
+			}
+		}
 		game.batch.end();
 		
 		stage.act();
