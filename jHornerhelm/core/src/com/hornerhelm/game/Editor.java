@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -32,12 +33,15 @@ public class Editor implements Screen{
     TextButton heilButton;
     TextButton acceptButton;
     
+    TextButton deleteButton;
+    
     TextButtonStyle kriegButtonStyle;
     TextButtonStyle schutzButtonStyle;
     TextButtonStyle machtButtonStyle;
     TextButtonStyle tricksterButtonStyle;
     TextButtonStyle heilButtonStyle;
     TextButtonStyle acceptButtonStyle;
+    TextButtonStyle neinButtonStyle;
 	
     Skin skin;
     BitmapFont font;
@@ -45,15 +49,13 @@ public class Editor implements Screen{
 	Texture testTexture;
     TextureAtlas buttonAtlas;
     
-    private TextureRegion kriegRegion, schutzRegion, machtRegion, tricksterRegion, heilRegion;
+    private TextureRegion kriegRegion, schutzRegion, machtRegion, tricksterRegion, heilRegion, neinRegion;
     
     Integer[] temparray;
     boolean ausstehend;
     
 	public Editor(final Hornerhelm gam) {
 		this.game = gam;
-
-		System.out.println(Arrays.asList(game.party.get(0)));
 		
 		System.out.println("ok:"+game.test);
 		
@@ -66,7 +68,7 @@ public class Editor implements Screen{
         font = new BitmapFont();
         
         skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons"));
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
         skin.addRegions(buttonAtlas);
         
         kriegRegion = new TextureRegion();
@@ -82,7 +84,16 @@ public class Editor implements Screen{
         tricksterRegion = buttonAtlas.findRegion("trickster-select");
         
         heilRegion = new TextureRegion();
-        heilRegion = buttonAtlas.findRegion("heil-select");                
+        heilRegion = buttonAtlas.findRegion("heil-select");
+        
+        neinRegion = new TextureRegion();
+        neinRegion = buttonAtlas.findRegion("nein-select");  
+        
+        neinButtonStyle = new TextButtonStyle();
+        neinButtonStyle.font = font;
+        neinButtonStyle.up = skin.getDrawable("nein-button");
+        
+        
         
         kriegButtonStyle = new TextButtonStyle();
         kriegButtonStyle.font = font;
@@ -179,10 +190,12 @@ public class Editor implements Screen{
 		
         Gdx.input.setInputProcessor(stage);
 		
+        updateEditor();
+        
 	}
 	
 	private void add(Integer entry) {
-
+		
 		System.out.println("lenge: "+game.party.size());
 		
 		ausstehend = true;
@@ -210,17 +223,51 @@ public class Editor implements Screen{
 			}
 			
 			System.out.println(" i:" + i + " lenge: "+ game.party.size());
-			
-			if (game.party.size() != 5 && ausstehend && i+1 == game.party.size())
-			{
-				System.out.println("add einherjar");
-				game.party.add(new Integer[]{entry,0,0,0,0});
-				ausstehend = false;
-			}
+		}
+		
+		if (game.party.size() != 5 && ausstehend)
+		{
+			System.out.println("add einherjar");
+			game.party.add(new Integer[]{entry,0,0,0,0});
+			ausstehend = false;
 		}
 		
 		System.out.println("--------------------------------------------------------------");
 		
+		updateEditor();
+		
+	}
+	
+	private void updateEditor(){
+		
+		for (int i = 0 ; i != game.party.size(); i++){
+			
+			if(Arrays.asList(game.party.get(i)).contains(0)){
+				System.out.println("0 enthalten");
+				acceptButton.setTouchable(Touchable.disabled);
+				acceptButton.setStyle(neinButtonStyle);
+			}
+			else{
+				System.out.println("0 NICHT enthalten "+i);
+				acceptButton.setTouchable(Touchable.enabled);
+				acceptButton.setStyle(acceptButtonStyle);
+				if (i+1 == 5){
+					System.out.println("fertig und voll");
+					kriegButton.setTouchable(Touchable.disabled);
+					schutzButton.setTouchable(Touchable.disabled);
+					machtButton.setTouchable(Touchable.disabled);
+					tricksterButton.setTouchable(Touchable.disabled);
+					heilButton.setTouchable(Touchable.disabled);
+					
+					kriegButton.setStyle(neinButtonStyle);
+					schutzButton.setStyle(neinButtonStyle);
+					machtButton.setStyle(neinButtonStyle);
+					tricksterButton.setStyle(neinButtonStyle);
+					heilButton.setStyle(neinButtonStyle);
+				}
+			}
+			
+		}
 	}
 
 	@Override
@@ -242,6 +289,7 @@ public class Editor implements Screen{
 		game.batch.draw(background, 0, 0);
 		
 		for (int i = 0 ; i != game.party.size(); i++){
+			
 			for (int y = 0; y != game.party.get(i).length; y++){
 				int aspect = game.party.get(i)[y];
 				if (aspect == 1)
@@ -259,6 +307,9 @@ public class Editor implements Screen{
 				}
 				else if (aspect == 5){
 					game.batch.draw(heilRegion, y*90,450-(90*i));
+				}
+				else if (aspect == 0){
+					game.batch.draw(neinRegion, y*90,450-(90*i));
 				}
 			}
 		}

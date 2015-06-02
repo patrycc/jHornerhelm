@@ -19,7 +19,7 @@ public class Hornerhelm extends Game {
 	public void create () {
 		
 		
-		this.party.add(new Integer[]{0,0,0,0,0});
+		//this.party.add(new Integer[]{0,0,0,0,0});
 		
 		batch = new SpriteBatch();
 		font = new BitmapFont();

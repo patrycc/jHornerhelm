@@ -43,7 +43,7 @@ public class Title implements Screen {
         Gdx.input.setInputProcessor(stage);
         font = new BitmapFont();
         skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons"));
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
         skin.addRegions(buttonAtlas);
         
         editorButtonStyle = new TextButtonStyle();

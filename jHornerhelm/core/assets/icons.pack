@@ -1,6 +1,6 @@
 
 icons1.png
-format: RGBA4444
+format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 trickster-select
@@ -38,59 +38,101 @@ okay-button
   orig: 90, 90
   offset: 0, 0
   index: -1
-nein-button
+nein-select
   rotate: false
   xy: 94, 186
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-macht-select
+nein-button
   rotate: false
   xy: 2, 278
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-macht-button
+macht-select
   rotate: false
   xy: 94, 278
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-krieg-select
+macht-button
   rotate: false
   xy: 2, 370
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-krieg-button
+krieg-select
   rotate: false
   xy: 94, 370
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-heil-select
+krieg-button
   rotate: false
   xy: 2, 462
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-heil-button
+heil-select
   rotate: false
   xy: 94, 462
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
-empty-button
+heil-button
   rotate: false
   xy: 2, 554
   size: 90, 90
   orig: 90, 90
+  offset: 0, 0
+  index: -1
+empty-button
+  rotate: false
+  xy: 94, 554
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+up-option
+  rotate: false
+  xy: 186, 2
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+empty-option
+  rotate: false
+  xy: 186, 94
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+down-option
+  rotate: false
+  xy: 186, 186
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+details-option
+  rotate: false
+  xy: 186, 278
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+delete-option
+  rotate: false
+  xy: 186, 370
+  size: 45, 45
+  orig: 45, 45
   offset: 0, 0
   index: -1
