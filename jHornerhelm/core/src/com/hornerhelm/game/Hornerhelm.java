@@ -18,7 +18,6 @@ public class Hornerhelm extends Game {
 	@Override
 	public void create () {
 		
-		
 		//this.party.add(new Integer[]{0,0,0,0,0});
 		
 		batch = new SpriteBatch();

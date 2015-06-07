@@ -85,6 +85,11 @@ public class Title implements Screen {
 			dispose();
 		}
 		
+		if (battleButton.isPressed() ) {
+			game.setScreen(new Battle(game));
+			dispose();
+		}
+		
 	}	
 	
 	@Override

@@ -1,5 +1,6 @@
 package com.hornerhelm.game;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
@@ -51,6 +52,8 @@ public class Editor implements Screen{
     
     private TextureRegion kriegRegion, schutzRegion, machtRegion, tricksterRegion, heilRegion, neinRegion;
     
+    private ArrayList<EditorOptionButtonSet> oklol = new ArrayList<EditorOptionButtonSet>();
+    
     Integer[] temparray;
     boolean ausstehend;
     
@@ -92,8 +95,6 @@ public class Editor implements Screen{
         neinButtonStyle = new TextButtonStyle();
         neinButtonStyle.font = font;
         neinButtonStyle.up = skin.getDrawable("nein-button");
-        
-        
         
         kriegButtonStyle = new TextButtonStyle();
         kriegButtonStyle.font = font;
@@ -230,6 +231,12 @@ public class Editor implements Screen{
 			System.out.println("add einherjar");
 			game.party.add(new Integer[]{entry,0,0,0,0});
 			ausstehend = false;
+			
+			//EditorOptionButtonSet optionsset= new EditorOptionButtonSet();
+			//optionsset.setPosition(x, y);
+			
+			//stage.addActor(optionsset.deleteButton);
+			
 		}
 		
 		System.out.println("--------------------------------------------------------------");
