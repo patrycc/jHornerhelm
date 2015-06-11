@@ -3,135 +3,184 @@ icons1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-trickster-select
+einherjar
   rotate: false
   xy: 2, 2
+  size: 108, 141
+  orig: 108, 141
+  offset: 0, 0
+  index: -1
+trickster-select
+  rotate: false
+  xy: 2, 145
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 trickster-button
   rotate: false
-  xy: 94, 2
+  xy: 2, 237
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+select-button
+  rotate: false
+  xy: 2, 329
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 schutz-select
   rotate: false
-  xy: 2, 94
+  xy: 112, 2
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 schutz-button
   rotate: false
-  xy: 94, 94
+  xy: 204, 2
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 okay-button
   rotate: false
-  xy: 2, 186
+  xy: 296, 2
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 nein-select
   rotate: false
-  xy: 94, 186
+  xy: 388, 2
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 nein-button
   rotate: false
-  xy: 2, 278
+  xy: 112, 94
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+melee-button
+  rotate: false
+  xy: 204, 94
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+magick-button
+  rotate: false
+  xy: 296, 94
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 macht-select
   rotate: false
-  xy: 94, 278
+  xy: 388, 94
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 macht-button
   rotate: false
-  xy: 2, 370
+  xy: 112, 186
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 krieg-select
   rotate: false
-  xy: 94, 370
+  xy: 112, 278
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 krieg-button
   rotate: false
-  xy: 2, 462
+  xy: 112, 370
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 heil-select
   rotate: false
-  xy: 94, 462
+  xy: 204, 186
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 heil-button
   rotate: false
-  xy: 2, 554
+  xy: 296, 186
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+healing-button
+  rotate: false
+  xy: 388, 186
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 empty-button
   rotate: false
-  xy: 94, 554
+  xy: 204, 278
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+defend-button
+  rotate: false
+  xy: 204, 370
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+attack-button
+  rotate: false
+  xy: 296, 278
   size: 90, 90
   orig: 90, 90
   offset: 0, 0
   index: -1
 up-option
   rotate: false
-  xy: 186, 2
+  xy: 2, 421
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 empty-option
   rotate: false
-  xy: 186, 94
+  xy: 49, 421
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 down-option
   rotate: false
-  xy: 186, 186
+  xy: 112, 462
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 details-option
   rotate: false
-  xy: 186, 278
+  xy: 204, 462
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
   index: -1
 delete-option
   rotate: false
-  xy: 186, 370
+  xy: 388, 278
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
