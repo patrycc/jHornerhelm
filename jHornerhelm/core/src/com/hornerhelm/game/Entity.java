@@ -4,9 +4,10 @@ import java.util.HashMap;
 
 public class Entity {
 	
-	private String label = new String("Einherjar");
-	
-	private boolean loyal = true;
+	private String label = new String("Entity");
+
+	private boolean isEinherjar = false;
+	private boolean loyal = false;
 	private boolean alive = true;
 	
 	//the basic number of HP. should be 5000.
@@ -43,9 +44,13 @@ public class Entity {
 	private Integer[] heilStats = {10,0,50};
 	private Integer[] tricksterStats = {20,20,20};
 
-	private HashMap<String, Integer> attributes;
+	public boolean isEinherjar() {
+		return isEinherjar;
+	}	
 	
 	public void setEinherjar(Integer[] ein){
+		
+		isEinherjar = true;
 		
 		for (Integer e : ein){
 			
@@ -87,17 +92,6 @@ public class Entity {
 			
 		}
 		
-	}
-	
-	public HashMap<String,Integer> getAttributes(){
-		
-		attributes = new HashMap<String, Integer>();
-		
-		attributes.put("maxHP", actual_HP);
-		attributes.put("HP", current_HP);
-		attributes.put("Melee", meleeStat);
-		
-		return attributes;
 	}
 	
 	public Entity() {

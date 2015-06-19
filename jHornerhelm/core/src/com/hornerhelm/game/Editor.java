@@ -60,8 +60,6 @@ public class Editor implements Screen{
 	public Editor(final Hornerhelm gam) {
 		this.game = gam;
 		
-		System.out.println("ok:"+game.test);
-		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, 540, 540);
         
@@ -142,40 +140,30 @@ public class Editor implements Screen{
         
         kriegButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.test = "krieg";
-                System.out.println(game.test);
                 add(1);
             }
         });
         
         schutzButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.test = "schutz";
-                System.out.println(game.test);
                 add(2);
             }
         });
         
         machtButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.test = "macht";
-                System.out.println(game.test);
                 add(3);
             }
         });
         
         tricksterButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.test = "trickster";
-                System.out.println(game.test);
                 add(4);
             }
         });
 
         heilButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.test = "heil";
-                System.out.println(game.test);
                 add(5);
             }
         });        
@@ -205,12 +193,14 @@ public class Editor implements Screen{
 			
 			System.out.println("los gehts");
 			
+			boolean keinenull = true;
+			
 			for (int y = 0; y != 5; y++){
 				
 				System.out.println("5 mal " + y + " " + i);
 				
 				if (game.party.get(i)[y] == 0 && ausstehend) {
-
+					
 					System.out.println("DRIN");
 					
 					temparray = game.party.get(i);
@@ -218,6 +208,18 @@ public class Editor implements Screen{
 
 					game.party.set(i, temparray);
 					ausstehend = false;
+				}
+				
+				if (game.party.get(i)[y] == 0){
+					keinenull = false;
+				}
+				
+				if (y == 4 && keinenull && game.party.size() != game.entities.size() ){
+					System.out.println("NEW ENTITY HERE");
+					Entity einherjar = new Entity();
+					einherjar.setEinherjar(game.party.get(i));
+					game.entities.add(einherjar);
+					System.out.println(game.entities.size());
 				}
 				
 				System.out.println("reihe:"+i+" "+Arrays.asList(game.party.get(i)));

@@ -3,17 +3,22 @@ package com.hornerhelm.game;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Hornerhelm extends Game {
 	SpriteBatch batch;
-	Texture img;
 	BitmapFont font;
-	String test = new String("hallo?");
-
+	
+	TextureAtlas buttonAtlas;
+	Skin skin;
+	
 	ArrayList<Integer[]> party = new ArrayList<Integer[]>();
+	ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	@Override
 	public void create () {
@@ -22,6 +27,11 @@ public class Hornerhelm extends Game {
 		
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		
+		buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
+		skin = new Skin();
+		skin.addRegions(buttonAtlas);;
+		
 		this.setScreen(new Title(this));
 	}
 

@@ -7,7 +7,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Battle  implements Screen{
 	
@@ -19,21 +23,22 @@ public class Battle  implements Screen{
     
 	Texture background;
 	
+	Skin skin;
+    BitmapFont font;
+	Texture testTexture;
+    TextureAtlas buttonAtlas;
 	
+    TextureRegion einherregion;
+    
 	public Battle(final Hornerhelm gam) {
 		
 		this.game = gam;
-		
-		//---
-		
-		Entity enty = new Entity();
-		enty.setEinherjar( game.party.get(0) );
-		
-		HashMap<String, Integer> attr = enty.getAttributes();
-		
-		System.out.println("sooo:" + attr.get("Melee"));
-		
-		//---
+
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
+        
+        einherregion = new TextureRegion();
+        einherregion = buttonAtlas.findRegion("einherjar");
+
 		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, 540, 540);
@@ -56,8 +61,15 @@ public class Battle  implements Screen{
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
 		
-		game.batch.begin();
+		game.batch.begin();		
 		game.batch.draw(background, 0, 0);
+		
+		for (int i = 0 ; i != game.entities.size() ; i++){
+			if (game.entities.get(i).isEinherjar() ){
+				game.batch.draw(einherregion, i*108,90);
+			}
+		}		
+		
 		game.batch.end();
 		
 	}
