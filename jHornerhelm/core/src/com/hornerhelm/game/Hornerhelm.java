@@ -30,7 +30,6 @@ public class Hornerhelm extends Game {
 		
 		buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
 		skin = new Skin();
-		skin.addRegions(buttonAtlas);;
 		
 		this.setScreen(new Title(this));
 	}

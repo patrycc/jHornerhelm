@@ -30,9 +30,13 @@ public class Battle  implements Screen{
 	
     TextureRegion einherregion;
     
+    MenuButton testButton;
+    
 	public Battle(final Hornerhelm gam) {
 		
 		this.game = gam;
+		
+		stage = new Stage();
 
         buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
         
@@ -44,7 +48,11 @@ public class Battle  implements Screen{
         camera.setToOrtho(false, 540, 540);
         
         background = new Texture(Gdx.files.internal("battle_bg.png"));		
-		
+        
+        testButton = new MenuButton(game, "test", "krieg-select", 200, 200);
+        
+        //stage.addActor(testButton.menuButton);
+        
 	}
 
 	@Override
@@ -71,6 +79,8 @@ public class Battle  implements Screen{
 		}		
 		
 		game.batch.end();
+		
+        stage.draw();
 		
 	}
 

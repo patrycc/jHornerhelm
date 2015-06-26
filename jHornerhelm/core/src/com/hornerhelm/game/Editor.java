@@ -13,10 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Editor implements Screen{
@@ -27,23 +24,13 @@ public class Editor implements Screen{
 	
     Stage stage;
 
-    TextButton kriegButton;
-    TextButton schutzButton;
-    TextButton machtButton;
-    TextButton tricksterButton;
-    TextButton heilButton;
-    TextButton acceptButton;
+    MenuButton kriegMenuButton;
+    MenuButton schutzMenuButton;
+    MenuButton machtMenuButton;
+    MenuButton tricksterMenuButton;
+    MenuButton heilMenuButton;
+    MenuButton acceptMenuButton;
     
-    TextButton deleteButton;
-    
-    TextButtonStyle kriegButtonStyle;
-    TextButtonStyle schutzButtonStyle;
-    TextButtonStyle machtButtonStyle;
-    TextButtonStyle tricksterButtonStyle;
-    TextButtonStyle heilButtonStyle;
-    TextButtonStyle acceptButtonStyle;
-    TextButtonStyle neinButtonStyle;
-	
     Skin skin;
     BitmapFont font;
 	Texture background;
@@ -51,8 +38,6 @@ public class Editor implements Screen{
     TextureAtlas buttonAtlas;
     
     private TextureRegion kriegRegion, schutzRegion, machtRegion, tricksterRegion, heilRegion, neinRegion;
-    
-    private ArrayList<EditorOptionButtonSet> oklol = new ArrayList<EditorOptionButtonSet>();
     
     Integer[] temparray;
     boolean ausstehend;
@@ -90,85 +75,53 @@ public class Editor implements Screen{
         neinRegion = new TextureRegion();
         neinRegion = buttonAtlas.findRegion("nein-select");  
         
-        neinButtonStyle = new TextButtonStyle();
-        neinButtonStyle.font = font;
-        neinButtonStyle.up = skin.getDrawable("nein-button");
+        kriegMenuButton = new MenuButton(game, "Krieg", "krieg-button", 0, 0);
+        schutzMenuButton = new MenuButton(game, "Schutz", "schutz-button", 90, 0);
+        machtMenuButton = new MenuButton(game, "Asir", "macht-button", 180, 0);
+        tricksterMenuButton = new MenuButton(game, "Lokir", "trickster-button", 270, 0);
+        heilMenuButton = new MenuButton(game, "Vanir", "heil-button", 360, 0);
+        acceptMenuButton = new MenuButton(game, "OK", "okay-button", 450, 0);
         
-        kriegButtonStyle = new TextButtonStyle();
-        kriegButtonStyle.font = font;
-        kriegButtonStyle.up = skin.getDrawable("krieg-button");
-        kriegButton = new TextButton("Krieg", kriegButtonStyle);
-        kriegButton.setPosition(0, 0);
-        stage.addActor(kriegButton);
-        
-        schutzButtonStyle = new TextButtonStyle();
-        schutzButtonStyle.font = font;
-        schutzButtonStyle.up = skin.getDrawable("schutz-button");
-        schutzButton = new TextButton("Schutz", schutzButtonStyle);
-        schutzButton.setPosition(90, 0);
-        stage.addActor(schutzButton);
-        
-        machtButtonStyle = new TextButtonStyle();
-        machtButtonStyle.font = font;
-        machtButtonStyle.up = skin.getDrawable("macht-button");
-        machtButton = new TextButton("Macht", machtButtonStyle);
-        machtButton.setPosition(180, 0);
-        stage.addActor(machtButton);           
-        
-        tricksterButtonStyle = new TextButtonStyle();
-        tricksterButtonStyle.font = font;
-        tricksterButtonStyle.up = skin.getDrawable("trickster-button");
-        tricksterButton = new TextButton("Trickster", tricksterButtonStyle);
-        tricksterButton.setPosition(270, 0);
-        stage.addActor(tricksterButton);
-        
-        heilButtonStyle = new TextButtonStyle();
-        heilButtonStyle.font = font;
-        heilButtonStyle.up = skin.getDrawable("heil-button");
-        heilButton = new TextButton("Heilung", heilButtonStyle);
-        heilButton.setPosition(360, 0);
-        stage.addActor(heilButton);
-        
-        acceptButtonStyle = new TextButtonStyle();
-        acceptButtonStyle.font = font;
-        acceptButtonStyle.up = skin.getDrawable("okay-button");
-        acceptButton = new TextButton("OK", acceptButtonStyle);
-        acceptButton.setPosition(450, 0);
-        stage.addActor(acceptButton);
+        stage.addActor(kriegMenuButton.getButton());
+        stage.addActor(schutzMenuButton.getButton());
+        stage.addActor(machtMenuButton.getButton());
+        stage.addActor(tricksterMenuButton.getButton());
+        stage.addActor(heilMenuButton.getButton());
+        stage.addActor(acceptMenuButton.getButton());
         
         temparray = new Integer[5];
         
-        kriegButton.addListener(new ClickListener() {
+        kriegMenuButton.getButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 add(1);
             }
         });
         
-        schutzButton.addListener(new ClickListener() {
+        schutzMenuButton.getButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 add(2);
             }
         });
         
-        machtButton.addListener(new ClickListener() {
+        machtMenuButton.getButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 add(3);
             }
         });
         
-        tricksterButton.addListener(new ClickListener() {
+        tricksterMenuButton.getButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 add(4);
             }
         });
 
-        heilButton.addListener(new ClickListener() {
+        heilMenuButton.getButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 add(5);
             }
         });        
         
-        acceptButton.addListener(new ClickListener() {
+        acceptMenuButton.getButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
     			game.setScreen(new Title(game));
     			dispose();
@@ -233,12 +186,6 @@ public class Editor implements Screen{
 			System.out.println("add einherjar");
 			game.party.add(new Integer[]{entry,0,0,0,0});
 			ausstehend = false;
-			
-			//EditorOptionButtonSet optionsset= new EditorOptionButtonSet();
-			//optionsset.setPosition(x, y);
-			
-			//stage.addActor(optionsset.deleteButton);
-			
 		}
 		
 		System.out.println("--------------------------------------------------------------");
@@ -253,26 +200,18 @@ public class Editor implements Screen{
 			
 			if(Arrays.asList(game.party.get(i)).contains(0)){
 				System.out.println("0 enthalten");
-				acceptButton.setTouchable(Touchable.disabled);
-				acceptButton.setStyle(neinButtonStyle);
+				acceptMenuButton.setState(false);
 			}
 			else{
 				System.out.println("0 NICHT enthalten "+i);
-				acceptButton.setTouchable(Touchable.enabled);
-				acceptButton.setStyle(acceptButtonStyle);
+				acceptMenuButton.setState(true);
 				if (i+1 == 5){
 					System.out.println("fertig und voll");
-					kriegButton.setTouchable(Touchable.disabled);
-					schutzButton.setTouchable(Touchable.disabled);
-					machtButton.setTouchable(Touchable.disabled);
-					tricksterButton.setTouchable(Touchable.disabled);
-					heilButton.setTouchable(Touchable.disabled);
-					
-					kriegButton.setStyle(neinButtonStyle);
-					schutzButton.setStyle(neinButtonStyle);
-					machtButton.setStyle(neinButtonStyle);
-					tricksterButton.setStyle(neinButtonStyle);
-					heilButton.setStyle(neinButtonStyle);
+					kriegMenuButton.setState(false);
+					schutzMenuButton.setState(false);
+					machtMenuButton.setState(false);
+					tricksterMenuButton.setState(false);
+					heilMenuButton.setState(false);
 				}
 			}
 			
