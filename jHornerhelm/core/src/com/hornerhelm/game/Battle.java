@@ -22,6 +22,7 @@ public class Battle  implements Screen{
     Stage stage;
     
 	Texture background;
+	Texture menu;
 	
 	Skin skin;
     BitmapFont font;
@@ -29,8 +30,9 @@ public class Battle  implements Screen{
     TextureAtlas buttonAtlas;
 	
     TextureRegion einherregion;
-    
-    MenuButton testButton;
+
+	private MenuButton selectMenuButton;
+	private MenuButton attackMenuButton;
     
 	public Battle(final Hornerhelm gam) {
 		
@@ -43,15 +45,17 @@ public class Battle  implements Screen{
         einherregion = new TextureRegion();
         einherregion = buttonAtlas.findRegion("einherjar");
 
+        selectMenuButton = new MenuButton(game, "", "select-button", 20, 20);
+        attackMenuButton = new MenuButton(game, "", "attack-button", 460, 20);
 		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, 540, 540);
         
-        background = new Texture(Gdx.files.internal("battle_bg.png"));		
-        
-        testButton = new MenuButton(game, "test", "krieg-select", 200, 200);
-        
-        //stage.addActor(testButton.menuButton);
+        background = new Texture(Gdx.files.internal("battle_bg.png"));
+        menu = new Texture(Gdx.files.internal("battle_frame.png"));
+ 
+        stage.addActor(selectMenuButton.getButton());
+        stage.addActor(attackMenuButton.getButton());
         
 	}
 
@@ -71,13 +75,14 @@ public class Battle  implements Screen{
 		
 		game.batch.begin();		
 		game.batch.draw(background, 0, 0);
-		
+		game.batch.draw(menu, 0, 0);
+		/*
 		for (int i = 0 ; i != game.entities.size() ; i++){
 			if (game.entities.get(i).isEinherjar() ){
 				game.batch.draw(einherregion, i*108,90);
 			}
 		}		
-		
+		*/
 		game.batch.end();
 		
         stage.draw();

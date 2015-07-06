@@ -48,13 +48,13 @@ public class Title implements Screen {
         
         editorButtonStyle = new TextButtonStyle();
         editorButtonStyle.font = font;
-        editorButtonStyle.up = skin.getDrawable("empty-button");
+        editorButtonStyle.up = skin.getDrawable("empty-button90x90");
         editorButton = new TextButton("Editor", editorButtonStyle);
         editorButton.setPosition(0, 0);
         
         battleButtonStyle = new TextButtonStyle();
         battleButtonStyle.font = font;
-        battleButtonStyle.up = skin.getDrawable("empty-button");
+        battleButtonStyle.up = skin.getDrawable("empty-button90x90");
         battleButton = new TextButton("Battle", editorButtonStyle);
         battleButton.setPosition(90, 0);
         

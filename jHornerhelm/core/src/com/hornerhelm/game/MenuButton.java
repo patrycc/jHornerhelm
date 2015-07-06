@@ -52,6 +52,7 @@ public class MenuButton {
 		}
 		else
 		{
+			//menuButton.get
 			menuButton.setStyle(neinButtonStyle);
 			menuButton.setTouchable(Touchable.disabled);
 		}
