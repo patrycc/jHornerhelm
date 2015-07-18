@@ -1,5 +1,6 @@
 package com.hornerhelm.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Battle  implements Screen{
 	
-	final Hornerhelm game;	
+	final Hornerhelm game;
 	
 	OrthographicCamera camera;
 	
@@ -31,8 +32,15 @@ public class Battle  implements Screen{
 	
     TextureRegion einherregion;
 
-	private MenuButton selectMenuButton;
-	private MenuButton attackMenuButton;
+	MenuButton selectMenuButton;
+	MenuButton attackMenuButton;
+	MenuButton aufgebenMenuButton;
+	MenuButton meleeMenuButton;
+	MenuButton defendMenuButton;
+	
+	EntitiesManager entitiesMgr;
+	
+	int numberOfEinherjar = 0;
     
 	public Battle(final Hornerhelm gam) {
 		
@@ -47,6 +55,10 @@ public class Battle  implements Screen{
 
         selectMenuButton = new MenuButton(game, "", "select-button", 20, 20);
         attackMenuButton = new MenuButton(game, "", "attack-button", 460, 20);
+        meleeMenuButton = new MenuButton(game, "", "melee-button", 95, 15);
+        defendMenuButton = new MenuButton(game, "", "defend-button", 165, 15);
+        
+        aufgebenMenuButton = new MenuButton(game, "", "aufgeben", 495, 115);
 		
 		camera = new OrthographicCamera();
         camera.setToOrtho(false, 540, 540);
@@ -54,8 +66,18 @@ public class Battle  implements Screen{
         background = new Texture(Gdx.files.internal("battle_bg.png"));
         menu = new Texture(Gdx.files.internal("battle_frame.png"));
  
+        entitiesMgr = new EntitiesManager(game.entities);
+        entitiesMgr.resetEinherjarPositions();
+        
         stage.addActor(selectMenuButton.getButton());
         stage.addActor(attackMenuButton.getButton());
+        stage.addActor(aufgebenMenuButton.getButton());
+        stage.addActor(meleeMenuButton.getButton());
+        stage.addActor(defendMenuButton.getButton());
+		
+		System.out.println("hm:"+entitiesMgr.countEinherjar());
+		System.out.println("hm2:"+entitiesMgr.countEinherjar());
+		System.out.println("hm3:"+entitiesMgr.countEinherjar());
         
 	}
 
@@ -76,13 +98,13 @@ public class Battle  implements Screen{
 		game.batch.begin();		
 		game.batch.draw(background, 0, 0);
 		game.batch.draw(menu, 0, 0);
-		/*
-		for (int i = 0 ; i != game.entities.size() ; i++){
-			if (game.entities.get(i).isEinherjar() ){
-				game.batch.draw(einherregion, i*108,90);
+		
+		for (int i = 0 ; i != entitiesMgr.countEinherjar() ; i++){
+			if (entitiesMgr.getEntity(i).isLoyal() ){
+				game.batch.draw(einherregion, entitiesMgr.getEntity(i).getX(),entitiesMgr.getEntity(i).getY());
 			}
-		}		
-		*/
+		}
+
 		game.batch.end();
 		
         stage.draw();

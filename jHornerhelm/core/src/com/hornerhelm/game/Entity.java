@@ -47,12 +47,22 @@ public class Entity {
 		
 		isEinherjar = true;
 		isLoyal = true;
-	
-		/*
-		for (Integer e : ein){
-			
-		}
-		*/
 	}
 	
+	public void setInherentPos(int x, int y){
+		inherent_x = x;
+		inherent_y = y;
+	}
+	
+	public int getX(){
+		return inherent_x;
+	}
+	
+	public int getY(){
+		return inherent_y;
+	}
+	
+	public boolean isLoyal(){
+		return isLoyal;
+	}
 }
