@@ -30,13 +30,15 @@ public class EntitiesManager {
 		
 		int unterkante = 100;
 		int startkante = 45;
+		int ganzkante = 450;
 		
 		this.numberOfEinherjar = countEinherjar();
 		
-		startkante +=  450 - (this.numberOfEinherjar * 90);
+		ganzkante -= (this.numberOfEinherjar * 90);
+		ganzkante = ganzkante /2;
 		
 		for ( int i = 0; i != countEinherjar(); i++ ){
-			localEntities.get(i).setInherentPos(startkante/2 + (i*90), unterkante );
+			localEntities.get(i).setInherentPos(startkante + ganzkante + (i*90), unterkante );
 		}
 			
 	}

@@ -1,8 +1,5 @@
 package com.hornerhelm.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Battle  implements Screen{
 	
@@ -31,6 +30,7 @@ public class Battle  implements Screen{
     TextureAtlas buttonAtlas;
 	
     TextureRegion einherregion;
+    TextureRegion handRegion;
 
 	MenuButton selectMenuButton;
 	MenuButton attackMenuButton;
@@ -40,19 +40,25 @@ public class Battle  implements Screen{
 	
 	EntitiesManager entitiesMgr;
 	
-	int numberOfEinherjar = 0;
-    
+	Integer numberOfEinherjar;
+    Integer activeLoyalist;
+	
 	public Battle(final Hornerhelm gam) {
 		
 		this.game = gam;
 		
 		stage = new Stage();
 
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
+        buttonAtlas = game.buttonAtlas;
         
         einherregion = new TextureRegion();
         einherregion = buttonAtlas.findRegion("einherjar");
 
+        handRegion = new TextureRegion();
+        handRegion = buttonAtlas.findRegion("hand");
+        
+        activeLoyalist = 0;
+        
         selectMenuButton = new MenuButton(game, "", "select-button", 20, 20);
         attackMenuButton = new MenuButton(game, "", "attack-button", 460, 20);
         meleeMenuButton = new MenuButton(game, "", "melee-button", 95, 15);
@@ -74,13 +80,41 @@ public class Battle  implements Screen{
         stage.addActor(aufgebenMenuButton.getButton());
         stage.addActor(meleeMenuButton.getButton());
         stage.addActor(defendMenuButton.getButton());
-		
-		System.out.println("hm:"+entitiesMgr.countEinherjar());
-		System.out.println("hm2:"+entitiesMgr.countEinherjar());
-		System.out.println("hm3:"+entitiesMgr.countEinherjar());
         
+		System.out.println("hm:"+entitiesMgr.countEinherjar());
+		
+		System.out.println(activeLoyalist);
+		
+        selectMenuButton.getButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+            	System.out.println("select");
+        		System.out.println("active: "+activeLoyalist);
+            	nextOne();
+            }
+        });
+        
+        aufgebenMenuButton.getButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+            	System.out.println("aufgeben");
+            }
+        });
+        
+        Gdx.input.setInputProcessor(stage);
+		
 	}
-
+	
+	public void nextOne(){
+		
+		System.out.println("total menge: "+entitiesMgr.countEinherjar());
+		
+		if (activeLoyalist != entitiesMgr.countEinherjar()-1){
+			activeLoyalist++;	
+		}
+		else{
+			activeLoyalist = 0;
+		}
+	}
+	
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
@@ -104,9 +138,12 @@ public class Battle  implements Screen{
 				game.batch.draw(einherregion, entitiesMgr.getEntity(i).getX(),entitiesMgr.getEntity(i).getY());
 			}
 		}
+		
+		game.batch.draw(handRegion, entitiesMgr.getEntity(activeLoyalist).getX(),entitiesMgr.getEntity(activeLoyalist).getY() + einherregion.getRegionHeight() );
 
 		game.batch.end();
 		
+		stage.act();
         stage.draw();
 		
 	}
