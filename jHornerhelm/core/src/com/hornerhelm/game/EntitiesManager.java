@@ -43,8 +43,16 @@ public class EntitiesManager {
 			
 	}
 	
+	public void addEntity(Entity addedEntity){
+		this.localEntities.add(addedEntity);
+	}
+	
 	public Entity getEntity(int pos){
 		return localEntities.get(pos);
+	}
+	
+	public int getNumberOfEntitites(){
+		return localEntities.size();
 	}
 
 }

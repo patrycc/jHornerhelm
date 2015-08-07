@@ -48,6 +48,12 @@ public class Entity {
 		isEinherjar = true;
 		isLoyal = true;
 	}
+
+	public void setEnemy(){
+		
+		isEinherjar = false;
+		isLoyal = false;
+	}
 	
 	public void setInherentPos(int x, int y){
 		inherent_x = x;

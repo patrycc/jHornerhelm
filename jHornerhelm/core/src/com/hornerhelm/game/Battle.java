@@ -23,6 +23,7 @@ public class Battle  implements Screen{
     
 	Texture background;
 	Texture menu;
+	Texture dummy;
 	
 	Skin skin;
     BitmapFont font;
@@ -42,6 +43,8 @@ public class Battle  implements Screen{
 	
 	Integer numberOfEinherjar;
     Integer activeLoyalist;
+    
+    Entity testGegner = new Entity();
 	
 	public Battle(final Hornerhelm gam) {
 		
@@ -71,9 +74,16 @@ public class Battle  implements Screen{
         
         background = new Texture(Gdx.files.internal("battle_bg.png"));
         menu = new Texture(Gdx.files.internal("battle_frame.png"));
- 
+        dummy = new Texture(Gdx.files.internal("dummy.png"));
+
+        //testGegner = new Entity();
+        testGegner.setInherentPos(200, 250);
+        testGegner.setEnemy();
+        
         entitiesMgr = new EntitiesManager(game.entities);
         entitiesMgr.resetEinherjarPositions();
+        
+        entitiesMgr.addEntity(testGegner);
         
         stage.addActor(selectMenuButton.getButton());
         stage.addActor(attackMenuButton.getButton());
@@ -133,9 +143,14 @@ public class Battle  implements Screen{
 		game.batch.draw(background, 0, 0);
 		game.batch.draw(menu, 0, 0);
 		
-		for (int i = 0 ; i != entitiesMgr.countEinherjar() ; i++){
+		for (int i = 0 ; i != entitiesMgr.getNumberOfEntitites() ; i++){
+			
 			if (entitiesMgr.getEntity(i).isLoyal() ){
 				game.batch.draw(einherregion, entitiesMgr.getEntity(i).getX(),entitiesMgr.getEntity(i).getY());
+			}
+			
+			if (entitiesMgr.getEntity(i).isLoyal() == false){
+				game.batch.draw(dummy, entitiesMgr.getEntity(i).getX(),entitiesMgr.getEntity(i).getY());
 			}
 		}
 		
