@@ -44,7 +44,11 @@ public class Battle  implements Screen{
 	Integer numberOfEinherjar;
     Integer activeLoyalist;
     
-    Entity testGegner = new Entity();
+    Entity testGegner1 = new Entity();
+    Entity testGegner2 = new Entity();
+    Entity testGegner3 = new Entity();
+    
+    Integer[][][] targets;
 	
 	public Battle(final Hornerhelm gam) {
 		
@@ -75,15 +79,27 @@ public class Battle  implements Screen{
         background = new Texture(Gdx.files.internal("battle_bg.png"));
         menu = new Texture(Gdx.files.internal("battle_frame.png"));
         dummy = new Texture(Gdx.files.internal("dummy.png"));
-
-        //testGegner = new Entity();
-        testGegner.setInherentPos(200, 250);
-        testGegner.setEnemy();
         
         entitiesMgr = new EntitiesManager(game.entities);
         entitiesMgr.resetEinherjarPositions();
         
-        entitiesMgr.addEntity(testGegner);
+        testGegner1.setInherentPos(100, 250);
+        testGegner1.setEnemy();
+        
+        testGegner2.setInherentPos(200, 250);
+        testGegner2.setEnemy();
+        
+        testGegner3.setInherentPos(300, 250);
+        testGegner3.setEnemy();
+        
+        entitiesMgr.addEntity(testGegner1);
+        entitiesMgr.addEntity(testGegner2);
+        entitiesMgr.addEntity(testGegner3);
+        
+        //0: targeting entity.
+        //1: targeted entity. only used for loyal entities.
+        //2: used action.
+        targets = new Integer[entitiesMgr.getNumberOfEntitites()][entitiesMgr.getNumberOfEntitites()][entitiesMgr.getNumberOfEntitites()];
         
         stage.addActor(selectMenuButton.getButton());
         stage.addActor(attackMenuButton.getButton());
@@ -100,6 +116,13 @@ public class Battle  implements Screen{
             	System.out.println("select");
         		System.out.println("active: "+activeLoyalist);
             	nextOne();
+            }
+        });
+        
+        attackMenuButton.getButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+            	System.out.println("attack!");
+        		System.out.println("active: "+activeLoyalist);
             }
         });
         

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class EntitiesManager {
 	
 	private Integer numberOfEinherjar = 0;
+	private Integer numberOfEnemies = 0;
 	
 	ArrayList<Entity> localEntities = new ArrayList<Entity>();
 	Entity tmpEntity = new Entity();
@@ -15,15 +16,30 @@ public class EntitiesManager {
 	
 	public Integer countEinherjar(){
 		
-		numberOfEinherjar = 0;
-		
-		for (int i = 0 ; i != this.localEntities.size() ; i++){
-			if (this.localEntities.get(i).isEinherjar() ){
-				this.numberOfEinherjar++;
-			}
+		if ( numberOfEinherjar == 0 )
+		{
+			for (int i = 0 ; i != this.localEntities.size() ; i++){
+				if (this.localEntities.get(i).isEinherjar() ){
+					this.numberOfEinherjar++;
+				}
+			}	
 		}
 		
 		return numberOfEinherjar; 
+	}
+	
+	public Integer countEnemies(){
+		
+		if ( numberOfEnemies == 0 )
+		{
+			for (int i = 0 ; i != this.localEntities.size() ; i++){
+				if (this.localEntities.get(i).isLoyal() == false ){
+					this.numberOfEnemies++;
+				}
+			}	
+		}
+		
+		return numberOfEinherjar;
 	}
 	
 	public void resetEinherjarPositions() {
