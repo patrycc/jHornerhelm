@@ -5,31 +5,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Title implements Screen {
 
 	final Hornerhelm game;
 
     Stage stage;
-    TextButton editorButton;
-    TextButton battleButton;
-    TextButtonStyle editorButtonStyle;
-    TextButtonStyle battleButtonStyle;
-    
-    BitmapFont font;
-    Skin skin;
-    TextureAtlas buttonAtlas;	
 	
 	OrthographicCamera camera;
 	Texture background;
+	
+    MenuButton editorButton;
+    MenuButton battleButton;
 	
 	public Title(final Hornerhelm gam) {
 		game = gam;
@@ -41,27 +31,26 @@ public class Title implements Screen {
 		
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        font = new BitmapFont();
-        skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("icons.pack"));
-        skin.addRegions(buttonAtlas);
         
-        editorButtonStyle = new TextButtonStyle();
-        editorButtonStyle.font = font;
-        editorButtonStyle.up = skin.getDrawable("empty-button90x90");
-        editorButton = new TextButton("Editor", editorButtonStyle);
-        editorButton.setPosition(0, 0);
+        editorButton = new MenuButton(game, "Editor", "empty-button90x90", 0, 0);
+        battleButton = new MenuButton(game, "Battle", "empty-button90x90", 90, 0);        
         
-        battleButtonStyle = new TextButtonStyle();
-        battleButtonStyle.font = font;
-        battleButtonStyle.up = skin.getDrawable("empty-button90x90");
-        battleButton = new TextButton("Battle", editorButtonStyle);
-        battleButton.setPosition(90, 0);
+        stage.addActor(editorButton.getButton());
+        stage.addActor(battleButton.getButton());
         
-        stage.addActor(editorButton);
-        stage.addActor(battleButton);
+        editorButton.getButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+    			game.setScreen(new Editor(game));
+    			dispose();
+            }
+        });
         
-		System.out.println("Title");        
+        battleButton.getButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+    			game.setScreen(new Battle(game));
+    			dispose();
+            }
+        });          
         
 	}
 	
@@ -79,17 +68,6 @@ public class Title implements Screen {
 		game.batch.end();
  
         stage.draw();
-		
-		if (editorButton.isPressed() ) {
-			game.setScreen(new Editor(game));
-			dispose();
-		}
-		
-		if (battleButton.isPressed() ) {
-			game.setScreen(new Battle(game));
-			dispose();
-		}
-		
 	}	
 	
 	@Override
